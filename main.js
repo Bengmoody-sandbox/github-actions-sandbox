@@ -15,7 +15,7 @@ function divideNumbers(num1, num2) {
 }
 
 function exponentNumbers(num1, num2) {
-    return num1 ** num2;
+    return num1 * num2;
 }
 
 console.log("add numbers 15 + 25: ", addNumbers(15,25))
