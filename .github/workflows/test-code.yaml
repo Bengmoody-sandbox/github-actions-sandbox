@@ -1,8 +1,9 @@
 name: test-code
 run-name: ${{ github.actor }} is testing his code
-on: push
-  branches-ignore:
-    - "main"
+on: 
+  push:
+    branches:
+      - '!main'
 jobs:
   run-jest-tests:
     runs-on: ubuntu-latest
