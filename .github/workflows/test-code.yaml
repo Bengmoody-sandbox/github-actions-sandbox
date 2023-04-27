@@ -14,6 +14,7 @@ jobs:
           node-version: '19'
       - run: npm install
       - run: npm run test
+      - run: echo "$GITHUB_CONTEXT"
   create-pull-request:
     runs-on: ubuntu-latest
     needs: [run-jest-tests]
