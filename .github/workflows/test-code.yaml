@@ -21,7 +21,7 @@ jobs:
     if: ${{ needs.run-jest-tests.result == 'success' }} 
     # always() && 
     steps:
-      - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3
       - uses: peter-evans/create-pull-request@v5
         with:
           branch: ${{github.ref}}
