@@ -11,3 +11,8 @@ jobs:
           node-version: '19'
       - run: npm install
       - run: npm run test
+  # notify-job:
+  #   runs-on: ubuntu-latest
+  #   needs: [run-jest-tests]
+  #   if: ${{ always() && needs.run-jest-tests.result == 'success'}}
+  #   steps:
