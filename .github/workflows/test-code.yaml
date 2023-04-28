@@ -39,7 +39,7 @@ jobs:
     if: ${{ needs.create-pull-request.result == 'success' }}
     steps:
       - run: export GH_TOKEN=${{secrets.GH_TOKEN}}
-      - run: echo "${{ secrets.GITHUB_TOKEN}}"" | gh auth login --with-token
+      - run: echo "${{ secrets.GITHUB_TOKEN}}" | gh auth login --with-token
       - name: Get Pull Request Number
         id: pr
         run: echo "pull_request_number=$(gh pr view --json number -q .number)" > "$GITHUB_OUTPUT"
