@@ -38,11 +38,12 @@ jobs:
     needs: create-pull-request
     if: ${{ needs.create-pull-request.result == 'success' }}
     steps:
+      
+        # run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+      - run: export GH_TOKEN=${{secrets.GH_TOKEN}}
+      - run: gh auth login
       - name: Get Pull Request Number
         id: pr
-        # run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
-        run: export GH_TOKEN=${{secrets.GH_TOKEN}}
-        run: gh auth login
         run: echo "pull_request_number=$(gh pr view --json number -q .number)" > "$GITHUB_OUTPUT"
         # run: echo "pull_request_number=$(gh pr view --json number -q .number || echo "")" > "$GITHUB_OUTPUT"
   approve:
