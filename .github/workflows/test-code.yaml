@@ -40,8 +40,8 @@ jobs:
       pull-requests: read|write
     steps:
       - uses: hmarr/auto-approve-action@v3
-      with:
-        pull-request-number: ${{ needs.create-pull-request.outputs.pull_request_number}}
+        with:
+          pull-request-number: ${{ needs.create-pull-request.outputs.pull_request_number}}
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       
