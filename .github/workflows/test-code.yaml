@@ -34,5 +34,5 @@ jobs:
       - run: git checkout ${{ github.ref }} 
       - run: gh auth login
         env: 
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
       - run: gh pr create --base main
