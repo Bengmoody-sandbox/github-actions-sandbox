@@ -40,7 +40,8 @@ jobs:
       pull-requests: write
     steps:
       - name: test needs context
-        run: echo ${{needs.create-pull-request.outputs.pull_request_number}}
+        run: echo ${{needs.create-pull-request}} 
+        # .outputs.pull_request_number
         # env:
         #   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       # - uses: hmarr/auto-approve-action@v3
