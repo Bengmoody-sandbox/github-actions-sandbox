@@ -29,16 +29,5 @@ jobs:
       - run: gh pr create --base main --title 'push request' --body 'pushing latest commit, unit tests successful'
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  auto-approve-pr:
-    runs-on: ubuntu-latest
-    permissions: 
-      pull-requests: write
-    needs: [run-jest-tests, create-pull-request ]
-    if: ${{ needs.run-jest-tests.result == 'success' && needs.create-pull-request.result == 'success'}}
-    steps:
-      - uses: actions/checkout@v3
-      - run: gh pr review --approve
-        env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        # - uses: actions/checkout@v3
-        # - name: auto-approve
+  
+      
