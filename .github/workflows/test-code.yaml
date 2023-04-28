@@ -46,7 +46,7 @@ jobs:
       - name: print GH context
         run: echo '${{ toJSON(github) }}'
       - name: print outputs from previous job
-        run: echo '${{needs.create-pull-request.outputs.pull_request_number}}'' 
+        run: echo '${{needs.create-pull-request.outputs.pull_request_number}}' 
         # .outputs.pull_request_number
         # env:
         #   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
