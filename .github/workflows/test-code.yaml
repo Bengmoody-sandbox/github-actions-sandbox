@@ -17,7 +17,6 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     outputs:
-      pull_request_number: ${{ steps.pr.outputs.pull_request_number }}
       fragment: ${{ steps.split.outputs.fragment }}
     needs: run-jest-tests
     if: ${{ needs.run-jest-tests.result == 'success' }}
@@ -32,14 +31,23 @@ jobs:
       - run: gh pr create --base main --title 'push request' --body 'pushing latest commit, unit tests successful'
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  get-pull-request-number:
+    runs-on: ubuntu-latest
+    outputs:
+      pull_request_number: ${{ steps.pr.outputs.pull_request_number }}
+    needs: create-pull-request
+    if: ${{ needs.create-pull-request.result == 'success' }}
+    steps:
       - name: Get Pull Request Number
         id: pr
         # run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
-        run: echo "$(gh pr view --json number -q .number)"
+        run: export GH_TOKEN=${{secrets.GH_TOKEN}}
+        run: gh auth login
+        run: echo "pull_request_number=$(gh pr view --json number -q .number)" > "$GITHUB_OUTPUT"
         # run: echo "pull_request_number=$(gh pr view --json number -q .number || echo "")" > "$GITHUB_OUTPUT"
   approve:
     runs-on: ubuntu-latest
-    needs: create-pull-request
+    needs: get-pull-request-number
     if: ${{ needs.create-pull-request.result == 'success'}}
     permissions:
       pull-requests: write
