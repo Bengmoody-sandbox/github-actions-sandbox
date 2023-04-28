@@ -17,6 +17,8 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     needs: [run-jest-tests]
+    permissions: 
+      pull-requests: read
     if: ${{ needs.run-jest-tests.result == 'success' }}
     steps:
       - uses: actions/checkout@v3
@@ -37,7 +39,7 @@ jobs:
     needs: [run-jest-tests,create-pull-request]
     if: ${{ needs.run-jest-tests.result == 'success' && needs.create-pull-request.result == 'success'}}
     permissions:
-      pull-requests: [read,write]
+      pull-requests: write
     steps:
       - uses: hmarr/auto-approve-action@v3
         with:
