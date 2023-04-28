@@ -39,8 +39,8 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-        env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        # env:
+        #   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - uses: hmarr/auto-approve-action@v3
         with:
           pull-request-number: ${{ needs.create-pull-request.outputs.pull_request_number}}
