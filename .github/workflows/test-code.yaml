@@ -43,8 +43,9 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: test needs context
+      - name: print GH context
         run: echo "$GITHUB_CONTEXT"
+      - name: print outputs from previous job
         run: echo ${{needs.create-pull-request.outputs.pull_request_number}} 
         # .outputs.pull_request_number
         # env:
