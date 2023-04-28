@@ -40,7 +40,7 @@ jobs:
       pull-requests: write
     steps:
       - name: test needs context
-        run: echo ${{needs.create-pull-request}} 
+        run: echo ${{needs.create-pull-request.outputs}} 
         # .outputs.pull_request_number
         # env:
         #   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
