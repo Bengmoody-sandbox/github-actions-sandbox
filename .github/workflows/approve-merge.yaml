@@ -1,12 +1,12 @@
-name: Auto approve
-on: pull_request
+# name: Auto approve
+# on: pull_request
 
-jobs:
-  approve:
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: hmarr/auto-approve-action@v3
-        env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+# jobs:
+#   approve:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       pull-requests: write
+#     steps:
+#       - uses: hmarr/auto-approve-action@v3
+#         env:
+#           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
