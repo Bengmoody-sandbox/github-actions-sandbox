@@ -29,8 +29,8 @@ jobs:
       - run: echo "$GH_TOKEN"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - run: gh auth login --with-token
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: gh auth login --with-token
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - run: gh pr create --base main --title 'push request' --body 'pushing latest commit, unit tests successful'
         
