@@ -35,7 +35,8 @@ jobs:
       - name: Get Pull Request Number
         id: pr
         # run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
-        run: echo "pull_request_number=$(gh pr view --json number -q .number || echo "")" > "$GITHUB_OUTPUT"
+        run: echo "$(gh pr view --json number -q .number)"
+        # run: echo "pull_request_number=$(gh pr view --json number -q .number || echo "")" > "$GITHUB_OUTPUT"
   approve:
     runs-on: ubuntu-latest
     needs: create-pull-request
