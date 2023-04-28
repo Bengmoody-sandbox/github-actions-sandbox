@@ -38,6 +38,7 @@ jobs:
     needs: create-pull-request
     if: ${{ needs.create-pull-request.result == 'success' }}
     steps:
+      - uses: actions/checkout@v3
       - run: export GH_TOKEN=${{secrets.GH_TOKEN}}
       - run: echo "${{ secrets.GITHUB_TOKEN}}" | gh auth login --with-token
       - name: Get Pull Request Number
