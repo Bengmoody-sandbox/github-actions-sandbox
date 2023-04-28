@@ -5,27 +5,16 @@ on:
     branches-ignore:
       - main
 jobs:
-  run-jest-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '19'
-      - run: npm install
-      - run: npm run test
-      # - run: echo ${{github.ref}}
+  # run-jest-tests:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '19'
+  #     - run: npm install
+  #     - run: npm run test
   create-pull-request:
-    # runs-on: ubuntu-latest
-    # needs: [run-jest-tests]
-    # if: ${{ needs.run-jest-tests.result == 'success' }} 
-    # # always() && 
-    # steps:
-    #   - uses: actions/checkout@v3
-    #   - uses: peter-evans/create-pull-request@v5
-    #     with:
-    #       base: ${{github.ref}}
-    #       branch: main
     runs-on: ubuntu-latest
     needs: [run-jest-tests]
     if: ${{ needs.run-jest-tests.result == 'success' }}
@@ -37,11 +26,11 @@ jobs:
         id: split
         run: echo "::set-output name=fragment::${BRANCH##*/}"
       - run: git checkout ${{ steps.split.outputs.fragment }} 
-      # - run: gh auth login
-      #   env: 
-      #     GH_TOKEN: ${{ github.token }}
-      - run: gh auth login --with-token
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: gh pr create --base main --title 'push request' --body 'pushing latest commit, unit tests successful'
+      - run: echo "$GH_TOKEN"
+          env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - run: gh auth login --with-token
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - run: gh pr create --base main --title 'push request' --body 'pushing latest commit, unit tests successful'
         
