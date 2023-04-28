@@ -16,7 +16,7 @@ jobs:
   #     - run: npm run test
   create-pull-request:
     runs-on: ubuntu-latest
-    needs: [run-jest-tests]
+    # needs: [run-jest-tests]
     if: ${{ needs.run-jest-tests.result == 'success' }}
     steps:
       - uses: actions/checkout@v3
