@@ -28,14 +28,14 @@ jobs:
           BRANCH: ${{ github.ref}}
         id: split
         run: echo "${BRANCH##*/}" > $GITHUB_OUTPUT
-      - run: git checkout ${{ GITHUB_OUTPUT.fragment }} 
+      - run: git checkout ${{ steps.split.outputs.fragment }} 
       - run: gh pr create --base main --title 'push request' --body 'pushing latest commit, unit tests successful'
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Get Pull Request Number
         id: pr
-        run: echo "$(gh pr view --json number -q .number || echo "")" > $GITHUB_OUTPUT
         # run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+        run: echo "$(gh pr view --json number -q .number || echo "")" > $GITHUB_OUTPUT
   approve:
     runs-on: ubuntu-latest
     needs: [ run-jest-tests, create-pull-request ]
@@ -44,7 +44,7 @@ jobs:
       pull-requests: write
     steps:
       - name: test needs context
-        run: echo ${{needs.create-pull-request.outputs.pull_request_number}} 
+        run: echo ${{needs.create-pull-request.outputs.fragment}} 
         # .outputs.pull_request_number
         # env:
         #   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
