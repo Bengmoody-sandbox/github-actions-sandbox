@@ -31,7 +31,12 @@ jobs:
     if: ${{ needs.run-jest-tests.result == 'success' }}
     steps:
       - uses: actions/checkout@v3
-      - run: git checkout ${{ github.ref }} 
+      - name: Split branch name
+        env: 
+          BRANCH: ${{ github.ref}}
+        id: split
+        run: echo "::set-output name=fragment::${BRANCH##*/}"
+      - run: git checkout ${{ steps.split.outputs.fragment }} 
       # - run: gh auth login
       #   env: 
       #     GH_TOKEN: ${{ github.token }}
