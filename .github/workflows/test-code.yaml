@@ -54,12 +54,11 @@ jobs:
       - name: print GH context
         run: echo '${{ toJSON(github) }}'
       - name: print outputs from previous job
-        run: echo '${{ toJSON(needs) }}' 
-        # .outputs.pull_request_number
+        # run: echo '${{ toJSON(needs) }}' 
         # env:
         #   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      # - uses: hmarr/auto-approve-action@v3
-      #   with:
-      #     pull-request-number: ${{ needs.create-pull-request.outputs.pull_request_number}}
+      - uses: hmarr/auto-approve-action@v3
+        with:
+          pull-request-number: ${{ needs.get-pull-request-number.outputs.pull_request_number}}
         
-      # sdfdsfdsf
+      
