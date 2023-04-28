@@ -37,7 +37,8 @@ jobs:
     needs: [run-jest-tests,create-pull-request]
     if: ${{ needs.run-jest-tests.result == 'success' && needs.create-pull-request.result == 'success'}}
     permissions:
-      pull-requests: read|write
+      pull-requests: read
+      pull-requests: write
     steps:
       - uses: hmarr/auto-approve-action@v3
         with:
