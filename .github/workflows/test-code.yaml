@@ -39,7 +39,7 @@ jobs:
     if: ${{ needs.create-pull-request.result == 'success' }}
     steps:
       - uses: actions/checkout@v3
-      - run: export GH_TOKEN=${{secrets.GH_TOKEN}}
+      # - run: export GH_TOKEN=${{secrets.GH_TOKEN}}
       - run: echo "${{ secrets.GITHUB_TOKEN}}" | gh auth login --with-token
       - name: Get Pull Request Number
         id: pr
@@ -59,8 +59,6 @@ jobs:
       #   # run: echo '${{ toJSON(needs) }}' 
       #   # env:
       #   #   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - uses: hmarr/auto-approve-action@v3
-        with:
-          pull-request-number: ${{ needs.get-pull-request-number.outputs.pull_request_number}}
-        # 
+      - name: approve pull request manually
+        run: gh pr review ${{ needs.get-pull-request-number.outputs.pull_request_number }} --approve
       
