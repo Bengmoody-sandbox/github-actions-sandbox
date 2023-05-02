@@ -71,6 +71,6 @@ jobs:
       - name: log in as organisation approver
         run: echo "${{ secrets.GH_APPROVER_TOKEN }}" | gh auth login --with-token
       - name: merge pull request manually
-        run: gh pr merge ${{ needs.get-pull-request-number.outputs.pull_request_number }} -m -d -b "merging PR ${{ needs.get-pull-request-number.outputs.pull_request_number }} "
+        run: gh pr merge ${{ needs.get-pull-request-number.outputs.pull_request_number }} -d -b "merging PR ${{ needs.get-pull-request-number.outputs.pull_request_number }} "
 
 
