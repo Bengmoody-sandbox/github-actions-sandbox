@@ -60,5 +60,5 @@ jobs:
       - uses: hmarr/auto-approve-action@v3
         with:
           pull-request-number: ${{ needs.get-pull-request-number.outputs.pull_request_number}}
-        # 
+        
       
