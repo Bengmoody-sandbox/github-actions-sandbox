@@ -62,4 +62,15 @@ jobs:
       #   #   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: approve pull request manually
         run: gh pr review ${{ needs.get-pull-request-number.outputs.pull_request_number }} --approve
-      
+  merge:
+    runs-on: ubuntu-latest
+    needs: [get-pull-request-number, approve]
+    if: ${{ needs.approve.result == 'success' }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: log in as organisation approver
+        run: echo "${{ secrets.GH_APPROVER_TOKEN }}" | gh auth login --with-token
+      - name: merge pull request manually
+        run: gh pr merge ${{ needs.get-pull-request-number.outputs.pull_request_number }} -m -d -b "merging PR ${{ needs.get-pull-request-number.outputs.pull_request_number }} "
+
+
