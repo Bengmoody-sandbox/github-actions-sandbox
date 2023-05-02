@@ -20,7 +20,7 @@ jobs:
       - name: log in to docker
         run: docker login -u ${{ secrets.DH_USERNAME }} -p ${{ secrets.DH_TOKEN }}
       - name: push to my repo
-        run: docker push ${{ steps.save-path.path-name }}
+        run: docker push ${{ steps.save-path.outputs.path-name }}
 
 #
 
