@@ -51,8 +51,10 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: print GH context
-        run: echo '${{ toJSON(github) }}'
+      - name: echo out the PR number to prove it works
+        run: echo "${{ needs.get-pull-request-number.outputs.pull_request_number }}"
+      - name: log in as organisation approver
+        run: echo "${{ secrets.GH_APPROVER_TOKEN }}" | gh auth login --with-token
       # - name: print outputs from previous job
       #   # run: echo '${{ toJSON(needs) }}' 
       #   # env:
