@@ -75,7 +75,7 @@ jobs:
       - name: fetch origin
         run: git fetch origin
       - name: checkout to branch needed
-        run: git checkout -b ${{ needs.create-pull-request.outputs.fragment }} upstream/${{ needs.create-pull-request.outputs.fragment }}
+        run: git checkout -b ${{ needs.create-pull-request.outputs.fragment }} origin/${{ needs.create-pull-request.outputs.fragment }}
       - name: merge pull request manually
         run: gh pr merge ${{ needs.get-pull-request-number.outputs.pull_request_number }} -s -d -b "merging PR ${{ needs.get-pull-request-number.outputs.pull_request_number }} "
 
