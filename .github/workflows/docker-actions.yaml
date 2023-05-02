@@ -1,0 +1,25 @@
+name: docker-actions
+run-name: $ {{ github.actor }} is making Docker image/container and pushing to DH repo 
+on: 
+  workflow_run:
+    workflows: [test-code]
+    types:
+      - completed
+
+jobs:
+  build-auth-and-push:
+    runs-on: ubuntu-latest
+    needs: merge
+    if: ${{ github.event.workflow_run.conclusion == 'success'}}
+    steps:
+      - uses: actions/checkout@v3
+      - name: checkout to main
+        run: git checkout main
+      - name: build project
+        id: save-path
+        run: echo "path-name:${{ secrets.DH_USERNAME }}/${{ secrets.DH_REPO_NAME }}" > "$GITHUB_OUTPUT"
+      - run: docker build -t ${{ steps.save-path.path-name }} .
+      - name: log in to docker
+        run: docker login -u ${{ secrets.DH_USERNAME }} -p ${{ secrets.DH_TOKEN }}
+      - name: push to my repo
+        run: docker push ${{ steps.save-path.path-name }}
