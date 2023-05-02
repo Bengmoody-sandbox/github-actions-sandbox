@@ -16,7 +16,7 @@ jobs:
       - name: build project
         id: save-path
         run: echo "path-name=${{ secrets.DH_USERNAME }}/${{ secrets.DH_REPO_NAME }}" > "$GITHUB_OUTPUT"
-      - run: docker build -t ${{ steps.save-path.path-name }} .
+      - run: docker build -t ${{ steps.save-path.outputs.path-name }} .
       - name: log in to docker
         run: docker login -u ${{ secrets.DH_USERNAME }} -p ${{ secrets.DH_TOKEN }}
       - name: push to my repo
